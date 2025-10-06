@@ -1,0 +1,1637 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Proceso de Matrícula - SABERWASI</title>
+        <style>
+            :root {
+                --primary: #005c8c;
+                --primary-light: #0077b3;
+                --primary-dark: #003d5c;
+                --secondary: #ff9a3c;
+                --accent: #4ecdc4;
+                --success: #2ecc71;
+                --text-dark: #2c3e50;
+                --text-light: #ecf0f1;
+                --bg-light: #f8fafc;
+                --bg-white: #ffffff;
+                --shadow: rgba(0, 92, 140, 0.1);
+                --border: #e2e8f0;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: var(--bg-light);
+                color: var(--text-dark);
+                line-height: 1.6;
+                padding: 2rem 1rem;
+            }
+
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+
+            .form-header {
+                background: linear-gradient(135deg, var(--primary), var(--primary-light));
+                color: white;
+                padding: 2.5rem;
+                border-radius: 15px;
+                box-shadow: 0 5px 20px var(--shadow);
+                margin-bottom: 2rem;
+                position: relative;
+            }
+
+            .form-header h1 {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .form-header p {
+                opacity: 0.95;
+                font-size: 1.05rem;
+            }
+
+            .recover-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: white;
+                text-decoration: none;
+                font-weight: 600;
+                padding: 0.8rem 1.5rem;
+                border: 2px solid white;
+                border-radius: 50px;
+                transition: all 0.3s;
+                position: absolute;
+                top: 2.5rem;
+                right: 2.5rem;
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .recover-link:hover {
+                background: white;
+                color: var(--primary);
+                transform: translateY(-2px);
+            }
+
+            .stepper-container {
+                background: white;
+                border-radius: 15px;
+                box-shadow: 0 10px 40px var(--shadow);
+                overflow: hidden;
+                margin-bottom: 2rem;
+            }
+
+            .progress-bar {
+                display: flex;
+                background: var(--bg-light);
+                padding: 0;
+                border-bottom: 3px solid var(--border);
+            }
+
+            .progress-step {
+                flex: 1;
+                padding: 2rem 1.5rem;
+                text-align: center;
+                position: relative;
+                cursor: pointer;
+                transition: all 0.3s;
+                border-right: 2px solid var(--border);
+            }
+
+            .progress-step:last-child {
+                border-right: none;
+            }
+
+            .progress-step::before {
+                content: '';
+                position: absolute;
+                bottom: -3px;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: transparent;
+                transition: all 0.3s;
+            }
+
+            .progress-step.completed::before {
+                background: var(--success);
+            }
+
+            .progress-step.active::before {
+                background: var(--primary);
+            }
+
+            .progress-step.active {
+                background: rgba(0, 92, 140, 0.05);
+            }
+
+            .step-number {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: white;
+                border: 3px solid var(--border);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1.3rem;
+                margin-bottom: 0.8rem;
+                transition: all 0.3s;
+            }
+
+            .progress-step.completed .step-number {
+                background: var(--success);
+                color: white;
+                border-color: var(--success);
+            }
+
+            .progress-step.active .step-number {
+                background: var(--primary);
+                color: white;
+                border-color: var(--primary);
+                transform: scale(1.1);
+            }
+
+            .step-title {
+                font-weight: 600;
+                color: var(--text-dark);
+                margin-bottom: 0.3rem;
+                font-size: 1.05rem;
+            }
+
+            .progress-step.active .step-title {
+                color: var(--primary);
+            }
+
+            .step-subtitle {
+                font-size: 0.85rem;
+                color: var(--text-dark);
+                opacity: 0.6;
+            }
+
+            .step-content {
+                display: none;
+                padding: 3rem;
+                animation: fadeIn 0.5s;
+            }
+
+            .step-content.active {
+                display: block;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            @keyframes fadeOut {
+                from { opacity: 1; transform: scale(1); }
+                to { opacity: 0; transform: scale(0.95); }
+            }
+
+            .content-header {
+                margin-bottom: 2.5rem;
+                padding-bottom: 1.5rem;
+                border-bottom: 2px solid var(--bg-light);
+            }
+
+            .content-header h2 {
+                font-size: 1.8rem;
+                color: var(--primary-dark);
+                margin-bottom: 0.5rem;
+            }
+
+            .content-header p {
+                color: var(--text-dark);
+                opacity: 0.7;
+                font-size: 1.05rem;
+            }
+
+            .person-card {
+                background: white;
+                border: 2px solid var(--border);
+                border-radius: 12px;
+                padding: 2rem;
+                margin-bottom: 2rem;
+                transition: all 0.3s;
+            }
+
+            .person-card:hover {
+                box-shadow: 0 8px 25px var(--shadow);
+                border-color: var(--primary-light);
+            }
+
+            .person-header {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid var(--bg-light);
+            }
+
+            .person-avatar {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--primary), var(--primary-light));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                color: white;
+                flex-shrink: 0;
+            }
+
+            .person-info h3 {
+                font-size: 1.4rem;
+                color: var(--primary-dark);
+                margin-bottom: 0.3rem;
+            }
+
+            .person-badge {
+                display: inline-block;
+                background: var(--success);
+                color: white;
+                padding: 0.3rem 1rem;
+                border-radius: 20px;
+                font-size: 0.85rem;
+                font-weight: 600;
+            }
+
+            .student-card {
+                background: linear-gradient(135deg, rgba(255, 154, 60, 0.05), rgba(255, 154, 60, 0.02));
+                border: 2px solid rgba(255, 154, 60, 0.3);
+            }
+
+            .student-card .person-avatar {
+                background: linear-gradient(135deg, var(--secondary), #ffb366);
+            }
+
+            .student-number {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+                background: var(--secondary);
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1.2rem;
+            }
+
+            .student-card {
+                position: relative;
+            }
+
+            .form-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .form-group.full-width {
+                grid-column: 1 / -1;
+            }
+
+            label {
+                font-weight: 600;
+                color: var(--text-dark);
+                margin-bottom: 0.5rem;
+                font-size: 0.95rem;
+            }
+
+            .required {
+                color: var(--secondary);
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            input[type="date"],
+            input[type="number"],
+            select {
+                padding: 0.9rem;
+                border: 2px solid var(--border);
+                border-radius: 8px;
+                font-size: 1rem;
+                transition: all 0.3s;
+                font-family: inherit;
+            }
+
+            input:focus,
+            select:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(0, 92, 140, 0.1);
+            }
+
+            .file-upload-area {
+                border: 2px dashed var(--border);
+                border-radius: 12px;
+                padding: 2rem;
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.3s;
+                background: var(--bg-light);
+                margin-bottom: 1.5rem;
+            }
+
+            .file-upload-area:hover {
+                border-color: var(--primary);
+                background: rgba(0, 92, 140, 0.05);
+            }
+
+            .file-upload-area.has-files {
+                border-color: var(--success);
+                background: rgba(46, 204, 113, 0.05);
+            }
+
+            .upload-icon {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+
+            .upload-text {
+                font-size: 1.1rem;
+                color: var(--text-dark);
+                margin-bottom: 0.5rem;
+            }
+
+            .upload-hint {
+                font-size: 0.9rem;
+                color: var(--text-dark);
+                opacity: 0.6;
+            }
+
+            .file-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .file-item {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1rem;
+                background: white;
+                border: 2px solid var(--border);
+                border-radius: 8px;
+                transition: all 0.3s;
+            }
+
+            .file-item:hover {
+                border-color: var(--primary);
+            }
+
+            .file-icon {
+                font-size: 2rem;
+            }
+
+            .file-details {
+                flex: 1;
+            }
+
+            .file-name {
+                font-weight: 600;
+                color: var(--text-dark);
+                margin-bottom: 0.2rem;
+                font-size: 0.95rem;
+            }
+
+            .file-size {
+                font-size: 0.85rem;
+                color: var(--text-dark);
+                opacity: 0.6;
+            }
+
+            .remove-file {
+                background: none;
+                border: none;
+                color: var(--secondary);
+                cursor: pointer;
+                font-size: 1.5rem;
+                transition: all 0.3s;
+            }
+
+            .remove-file:hover {
+                color: #e74c3c;
+                transform: scale(1.2);
+            }
+
+            .remove-student-btn {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: white;
+                border: 2px solid #e74c3c;
+                color: #e74c3c;
+                padding: 0.6rem 1.2rem;
+                border-radius: 50px;
+                font-size: 0.95rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                z-index: 10;
+            }
+
+            .remove-student-btn:hover {
+                background: #e74c3c;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+            }
+
+            .info-box {
+                background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(78, 205, 196, 0.05));
+                border-left: 4px solid var(--accent);
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin: 1.5rem 0;
+            }
+
+            .info-box strong {
+                color: var(--primary-dark);
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+            .radio-group {
+                display: flex;
+                gap: 2rem;
+                padding: 1.5rem;
+                background: var(--bg-light);
+                border-radius: 8px;
+                margin: 1rem 0;
+            }
+
+            .radio-option {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                cursor: pointer;
+                padding: 0.8rem 1.5rem;
+                background: white;
+                border: 2px solid var(--border);
+                border-radius: 8px;
+                transition: all 0.3s;
+            }
+
+            .radio-option:hover {
+                border-color: var(--primary);
+            }
+
+            .radio-option input[type="radio"] {
+                width: 22px;
+                height: 22px;
+                cursor: pointer;
+                accent-color: var(--primary);
+            }
+
+            .checkbox-item {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1.2rem;
+                background: rgba(46, 204, 113, 0.1);
+                border: 2px solid var(--success);
+                border-radius: 8px;
+                margin: 1rem 0;
+            }
+
+            .checkbox-item input[type="checkbox"] {
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+                accent-color: var(--success);
+            }
+
+            .checkbox-item label {
+                margin: 0;
+                font-size: 1.05rem;
+            }
+
+            .add-student-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.8rem;
+                width: 100%;
+                padding: 1.5rem;
+                background: white;
+                border: 3px dashed var(--secondary);
+                border-radius: 12px;
+                color: var(--secondary);
+                font-size: 1.1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+
+            .add-student-btn:hover {
+                background: rgba(255, 154, 60, 0.05);
+                border-color: #ff8c28;
+                transform: translateY(-2px);
+            }
+
+            .navigation-buttons {
+                display: flex;
+                justify-content: space-between;
+                gap: 1.5rem;
+                padding: 2.5rem 3rem;
+                background: var(--bg-light);
+                border-top: 2px solid var(--border);
+                margin-top: 2rem;
+            }
+
+            .btn {
+                padding: 1rem 2.5rem;
+                border: none;
+                border-radius: 50px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s;
+                font-family: inherit;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.8rem;
+            }
+
+            .btn-primary {
+                background: var(--primary);
+                color: white;
+                box-shadow: 0 4px 15px rgba(0, 92, 140, 0.3);
+            }
+
+            .btn-primary:hover {
+                background: var(--primary-light);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 92, 140, 0.4);
+            }
+
+            .btn-success {
+                background: var(--success);
+                color: white;
+                box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+            }
+
+            .btn-success:hover {
+                background: #27ae60;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+            }
+
+            .btn-secondary {
+                background: white;
+                color: var(--text-dark);
+                border: 2px solid var(--border);
+            }
+
+            .btn-secondary:hover {
+                background: var(--bg-light);
+                border-color: var(--primary);
+            }
+
+            .captcha-box {
+                display: flex;
+                justify-content: center;
+                padding: 2rem;
+                background: var(--bg-light);
+                border-radius: 8px;
+                margin: 2rem 0;
+            }
+
+            .captcha-inner {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding: 1.5rem 2rem;
+                background: white;
+                border: 2px solid var(--border);
+                border-radius: 8px;
+            }
+
+            .captcha-inner input[type="checkbox"] {
+                width: 28px;
+                height: 28px;
+                cursor: pointer;
+                accent-color: var(--success);
+            }
+
+            @media (max-width: 968px) {
+                .progress-bar {
+                    flex-wrap: wrap;
+                }
+
+                .progress-step {
+                    flex: 1 1 calc(50% - 1px);
+                }
+
+                .step-content {
+                    padding: 2rem 1.5rem;
+                }
+
+                .form-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .recover-link {
+                    position: static;
+                    margin-top: 1rem;
+                }
+            }
+
+            @media (max-width: 640px) {
+                .progress-step {
+                    flex: 1 1 100%;
+                }
+
+                .person-header {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .navigation-buttons {
+                    flex-direction: column;
+                }
+
+                .btn {
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+
+            .summary-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin: 2rem 0;
+            }
+
+            .summary-card {
+                background: white;
+                border: 2px solid var(--border);
+                border-radius: 12px;
+                padding: 2rem;
+                transition: all 0.3s;
+            }
+
+            .summary-card:hover {
+                box-shadow: 0 8px 25px var(--shadow);
+                border-color: var(--primary);
+            }
+
+            .summary-card h3 {
+                color: var(--primary-dark);
+                margin-bottom: 1.5rem;
+                font-size: 1.3rem;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            }
+
+            .summary-item {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.8rem 0;
+                border-bottom: 1px solid var(--bg-light);
+            }
+
+            .summary-item:last-child {
+                border-bottom: none;
+            }
+
+            .summary-label {
+                font-weight: 600;
+                color: var(--text-dark);
+                opacity: 0.7;
+            }
+
+            .summary-value {
+                color: var(--text-dark);
+                font-weight: 500;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-header">
+                <a href="#" class="recover-link">
+                    🔄 Recuperar Información
+                </a>
+                <h1>📋 Proceso de Matrícula</h1>
+                <p>Complete cada paso del proceso para finalizar la matrícula de su(s) hijo(s)</p>
+            </div>
+
+            <div class="stepper-container">
+                <!-- Progress Bar -->
+                <div class="progress-bar">
+                    <div class="progress-step completed" data-step="1">
+                        <div class="step-number">✓</div>
+                        <div class="step-title">Apoderado</div>
+                        <div class="step-subtitle">Datos e inscripción</div>
+                    </div>
+                    <div class="progress-step active" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Postulantes</div>
+                        <div class="step-subtitle">Datos estudiantes</div>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Atención</div>
+                        <div class="step-subtitle">Evaluación</div>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Documentación</div>
+                        <div class="step-subtitle">Archivos</div>
+                    </div>
+                    <div class="progress-step" data-step="5">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Matrícula</div>
+                        <div class="step-subtitle">Asignación</div>
+                    </div>
+                    <div class="progress-step" data-step="6">
+                        <div class="step-number">6</div>
+                        <div class="step-title">Revisión</div>
+                        <div class="step-subtitle">Confirmar</div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Apoderado -->
+                <div class="step-content" id="step1">
+                    <div class="content-header">
+                        <h2>👤 Información del Apoderado</h2>
+                        <p>Complete los datos personales del padre, madre o tutor responsable</p>
+                    </div>
+
+                    <div class="person-card">
+                        <div class="person-header">
+                            <div class="person-avatar">👤</div>
+                            <div class="person-info">
+                                <h3>Datos Personales</h3>
+                                <span class="person-badge">✓ Verificado</span>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tipo de Documento <span class="required">*</span></label>
+                                <select required>
+                                    <option>L.E / DNI</option>
+                                    <option>Pasaporte</option>
+                                    <option>Carné de Extranjería</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Documento <span class="required">*</span></label>
+                                <input type="text" value="72939709" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombres <span class="required">*</span></label>
+                                <input type="text" value="Marical Aldair" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Apellido Paterno <span class="required">*</span></label>
+                                <input type="text" value="Perez" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Apellido Materno <span class="required">*</span></label>
+                                <input type="text" value="Álvarez" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Celular <span class="required">*</span></label>
+                                <input type="tel" value="927464428" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Correo Electrónico <span class="required">*</span></label>
+                                <input type="email" value="aldair@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Ocupación <span class="required">*</span></label>
+                                <input type="text" value="Ingeniero" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Distrito de Residencia <span class="required">*</span></label>
+                                <select required>
+                                    <option>Tarapoto</option>
+                                    <option>Morales</option>
+                                    <option>La Banda de Shilcayo</option>
+                                    <option>Otros</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Parentesco <span class="required">*</span></label>
+                                <select required>
+                                    <option>Padre</option>
+                                    <option>Madre</option>
+                                    <option>Tutor Legal</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>¿Cómo conoció nuestro programa educativo? <span class="required">*</span></label>
+                                <select required>
+                                    <option>Recomendación de familiar o amigo</option>
+                                    <option>Redes Sociales</option>
+                                    <option>Búsqueda en Internet</option>
+                                    <option>Publicidad</option>
+                                    <option>Visita a la institución</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visita Guiada Section -->
+                    <div class="person-card" style="background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(78, 205, 196, 0.05)); border-color: var(--accent); margin-top: 2rem;">
+                        <div class="person-header">
+                            <div class="person-avatar" style="background: linear-gradient(135deg, var(--accent), #6ce0d8);">🏫</div>
+                            <div class="person-info">
+                                <h3>Visita Guiada</h3>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>¿Le gustaría agendar una visita guiada?</strong>
+                            La visita será guiada por nuestro coordinador académico. La familia podrá conocer nuestro plan de estudios e infraestructura, además de recibir información sobre el proceso de admisión.
+                        </div>
+
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="visita-si" name="visita" checked>
+                                <label for="visita-si" style="margin: 0;">Sí, deseo agendar visita</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="visita-no" name="visita">
+                                <label for="visita-no" style="margin: 0;">No, por el momento</label>
+                            </div>
+                        </div>
+
+                        <div id="fecha-visita-container">
+                            <div class="info-box" style="background: linear-gradient(135deg, rgba(255, 154, 60, 0.1), rgba(255, 154, 60, 0.05)); border-left-color: var(--secondary);">
+                                <strong>Seleccione una fecha:</strong>
+                                Las visitas están disponibles de lunes a jueves en el horario de 4:30pm a 6:00pm. La duración es de aproximadamente 60 minutos.
+                            </div>
+
+                            <div class="form-group" style="max-width: 400px;">
+                                <label>Fecha de Visita <span class="required">*</span></label>
+                                <input type="date" value="2025-10-16" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Postulantes -->
+                <div class="step-content active" id="step2">
+                    <div class="content-header">
+                        <h2>👨‍🎓 Datos de los Postulantes</h2>
+                        <p>Ingrese la información de cada estudiante que desea matricular</p>
+                    </div>
+
+                    <!-- Postulante 1 -->
+                    <div class="person-card student-card" data-student-id="1">
+                        <button class="remove-student-btn" onclick="removeStudent(1)">
+                            🗑️ Eliminar Postulante
+                        </button>
+                        <div class="student-number">1</div>
+                        <div class="person-header">
+                            <div class="person-avatar">👦</div>
+                            <div class="person-info">
+                                <h3>Postulante 1</h3>
+                                <span class="person-badge" style="background: var(--secondary);">Listo para matricular</span>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tipo de Documento <span class="required">*</span></label>
+                                <select required>
+                                    <option>L.E / DNI</option>
+                                    <option>Partida de Nacimiento</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Documento <span class="required">*</span></label>
+                                <input type="text" value="92844576" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombres <span class="required">*</span></label>
+                                <input type="text" value="Juan" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Apellido Paterno <span class="required">*</span></label>
+                                <input type="text" value="Perez" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Apellido Materno <span class="required">*</span></label>
+                                <input type="text" value="Lopez" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento <span class="required">*</span></label>
+                                <input type="date" value="2021-02-16" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Edad (años) <span class="required">*</span></label>
+                                <input type="number" value="4" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>I.E. de Procedencia <span class="required">*</span></label>
+                                <input type="text" value="I.E 0700" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Grado Actual <span class="required">*</span></label>
+                                <select required>
+                                    <option>INICIAL</option>
+                                    <option>1° Primaria</option>
+                                    <option>2° Primaria</option>
+                                    <option>3° Primaria</option>
+                                    <option>4° Primaria</option>
+                                    <option>5° Primaria</option>
+                                    <option>6° Primaria</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Grado a Matricular <span class="required">*</span></label>
+                                <select required>
+                                    <option>1° Primaria</option>
+                                    <option>2° Primaria</option>
+                                    <option>3° Primaria</option>
+                                    <option>4° Primaria</option>
+                                    <option>5° Primaria</option>
+                                    <option>6° Primaria</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Postulante 2 (Ejemplo) -->
+                    <div class="person-card student-card" style="display: none;" data-student-id="2">
+                        <button class="remove-student-btn" onclick="removeStudent(2)">
+                            🗑️ Eliminar Postulante
+                        </button>
+                        <div class="student-number">2</div>
+                        <div class="person-header">
+                            <div class="person-avatar">👧</div>
+                            <div class="person-info">
+                                <h3>Postulante 2</h3>
+                                <span class="person-badge" style="background: var(--secondary);">Nuevo postulante</span>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tipo de Documento <span class="required">*</span></label>
+                                <select required>
+                                    <option>L.E / DNI</option>
+                                    <option>Partida de Nacimiento</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Documento <span class="required">*</span></label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombres <span class="required">*</span></label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Apellido Paterno <span class="required">*</span></label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Apellido Materno <span class="required">*</span></label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Nacimiento <span class="required">*</span></label>
+                                <input type="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Edad (años) <span class="required">*</span></label>
+                                <input type="number" required>
+                            </div>
+                            <div class="form-group">
+                                <label>I.E. de Procedencia <span class="required">*</span></label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Grado Actual <span class="required">*</span></label>
+                                <select required>
+                                    <option>INICIAL</option>
+                                    <option>1° Primaria</option>
+                                    <option>2° Primaria</option>
+                                    <option>3° Primaria</option>
+                                    <option>4° Primaria</option>
+                                    <option>5° Primaria</option>
+                                    <option>6° Primaria</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Grado a Matricular <span class="required">*</span></label>
+                                <select required>
+                                    <option>1° Primaria</option>
+                                    <option>2° Primaria</option>
+                                    <option>3° Primaria</option>
+                                    <option>4° Primaria</option>
+                                    <option>5° Primaria</option>
+                                    <option>6° Primaria</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Año Lectivo <span class="required">*</span></label>
+                                <select required>
+                                    <option>2025</option>
+                                    <option>2026</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Aula Asignada <span class="required">*</span></label>
+                                <select required>
+                                    <option>Seleccione aula</option>
+                                    <option>Aula A - Mañana</option>
+                                    <option>Aula B - Mañana</option>
+                                    <option>Aula C - Tarde</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="add-student-btn" onclick="addStudent()">
+                        <span style="font-size: 1.5rem;">+</span>
+                        Agregar otro postulante
+                    </button>
+                </div>
+
+                <!-- Step 3: Atención -->
+                <div class="step-content" id="step3">
+                    <div class="content-header">
+                        <h2>🎯 Proceso de Atención</h2>
+                        <p>Entrevista con coordinación y evaluación de cada postulante</p>
+                    </div>
+
+                    <!-- Entrevista Apoderado -->
+                    <div class="person-card">
+                        <div class="person-header">
+                            <div class="person-avatar">👤</div>
+                            <div class="person-info">
+                                <h3>Entrevista con Coordinación Académica</h3>
+                                <span class="person-badge" style="background: var(--success);">✓ Completada</span>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="interview" checked disabled>
+                            <label for="interview">✓ Entrevista con coordinación académica completada</label>
+                        </div>
+
+                        <div class="info-box">
+                            <strong>📋 Sobre la entrevista</strong>
+                            <div style="margin-top: 0.8rem; font-size: 0.95rem;">
+                                Durante esta entrevista, el coordinador académico conoció a la familia, explicó el programa educativo de SABERWASI y resolvió todas las consultas sobre el proceso de admisión.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Postulante 1 - Atención -->
+                    <div class="person-card student-card" data-attention-id="1">
+                        <div class="student-number">1</div>
+                        <div class="person-header">
+                            <div class="person-avatar">👦</div>
+                            <div class="person-info">
+                                <h3>Juan Perez Lopez</h3>
+                                <span class="person-badge" style="background: var(--success);">✓ Evaluación completada</span>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="class-test-1" checked disabled>
+                            <label for="class-test-1">✓ Clase de prueba completada</label>
+                        </div>
+
+                        <div class="info-box" style="background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(46, 204, 113, 0.05)); border-left-color: var(--success);">
+                            <strong>📄 Informe Psicológico</strong>
+                            <div style="margin-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                                <div>
+                                    <div style="font-size: 0.95rem; margin-bottom: 0.5rem;">El estudiante ha completado exitosamente la evaluación psicológica.</div>
+                                    <div style="font-size: 0.85rem; opacity: 0.7;">Fecha de evaluación: 28/09/2025</div>
+                                </div>
+                                <a href="#" style="padding: 0.8rem 1.5rem; background: var(--success); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
+                                    📥 Ver Informe PDF
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 2rem;">
+                            <strong>✅ Estado del Postulante</strong>
+                            <div style="margin-top: 0.8rem; font-size: 0.95rem;">
+                                El postulante ha completado satisfactoriamente todas las evaluaciones requeridas. Ya puede proceder con la carga de documentos y posterior matrícula.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Documentación -->
+                <div class="step-content" id="step4">
+                    <div class="content-header">
+                        <h2>📁 Documentación Requerida</h2>
+                        <p>Cargue todos los documentos necesarios para completar el proceso de matrícula</p>
+                    </div>
+
+                    <div class="person-card">
+                        <div class="person-header">
+                            <div class="person-avatar">📄</div>
+                            <div class="person-info">
+                                <h3>Documentos del Apoderado</h3>
+                            </div>
+                        </div>
+
+                        <div class="file-upload-area" onclick="document.getElementById('file-apoderado-1').click()">
+                            <div class="upload-icon">📤</div>
+                            <div class="upload-text">Constancia de No Adeudo</div>
+                            <div class="upload-hint">Haga clic para seleccionar archivo o arrástrelo aquí (PDF, JPG, PNG - Máx. 5MB)</div>
+                            <input type="file" id="file-apoderado-1" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Constancia de No Adeudo')">
+                        </div>
+
+                        <div class="file-upload-area" onclick="document.getElementById('file-apoderado-2').click()">
+                            <div class="upload-icon">📤</div>
+                            <div class="upload-text">Comprobante de Pago</div>
+                            <div class="upload-hint">Haga clic para seleccionar archivo o arrástrelo aquí (PDF, JPG, PNG - Máx. 5MB)</div>
+                            <input type="file" id="file-apoderado-2" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Comprobante de Pago')">
+                        </div>
+
+                        <div class="file-list" id="files-apoderado"></div>
+                    </div>
+
+                    <div class="person-card student-card">
+                        <div class="student-number">1</div>
+                        <div class="person-header">
+                            <div class="person-avatar">👦</div>
+                            <div class="person-info">
+                                <h3>Documentos de Juan Perez Lopez</h3>
+                            </div>
+                        </div>
+
+                        <div class="file-upload-area" onclick="document.getElementById('file-student-1-1').click()">
+                            <div class="upload-icon">📤</div>
+                            <div class="upload-text">Certificado de Estudios</div>
+                            <div class="upload-hint">Documento oficial de la institución anterior (PDF)</div>
+                            <input type="file" id="file-student-1-1" accept=".pdf" style="display: none;" onchange="handleFileUpload(this, 'Certificado de Estudios')">
+                        </div>
+
+                        <div class="file-upload-area" onclick="document.getElementById('file-student-1-2').click()">
+                            <div class="upload-icon">📤</div>
+                            <div class="upload-text">Libreta de Notas</div>
+                            <div class="upload-hint">Último período académico (PDF, JPG, PNG)</div>
+                            <input type="file" id="file-student-1-2" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Libreta de Notas')">
+                        </div>
+
+                        <div class="file-upload-area" onclick="document.getElementById('file-student-1-3').click()">
+                            <div class="upload-icon">📤</div>
+                            <div class="upload-text">Ficha de Matrícula Año Anterior</div>
+                            <div class="upload-hint">Si aplica (PDF, JPG, PNG)</div>
+                            <input type="file" id="file-student-1-3" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Ficha de Matrícula')">
+                        </div>
+
+                        <div class="file-upload-area" onclick="document.getElementById('file-student-1-4').click()">
+                            <div class="upload-icon">📤</div>
+                            <div class="upload-text">Documento de Identidad Escaneado</div>
+                            <div class="upload-hint">DNI o Partida de Nacimiento (PDF, JPG, PNG)</div>
+                            <input type="file" id="file-student-1-4" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Documento de Identidad')">
+                        </div>
+
+                        <div class="file-list" id="files-student-1">                    </div>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>📌 Importante:</strong>
+                        Asegúrese de que todos los documentos sean legibles y estén en formato PDF, JPG o PNG. Los archivos no deben superar los 5MB cada uno. Si tiene varios postulantes, deberá cargar los documentos de cada uno por separado.
+                    </div>
+                </div>
+
+                <!-- Step 5: Matrícula -->
+                <div class="step-content" id="step5">
+                    <div class="content-header">
+                        <h2>🎓 Matrícula</h2>
+                        <p>Asignación de vacante y datos finales de matrícula</p>
+                    </div>
+
+                    <!-- Postulante 1 - Matrícula -->
+                    <div class="person-card student-card" data-matricula-id="1">
+                        <div class="student-number">1</div>
+                        <div class="person-header">
+                            <div class="person-avatar">👦</div>
+                            <div class="person-info">
+                                <h3>Juan Perez Lopez</h3>
+                                <span class="person-badge" style="background: var(--primary);">Listo para matricular</span>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="background: linear-gradient(135deg, rgba(0, 92, 140, 0.1), rgba(0, 92, 140, 0.05)); border-left-color: var(--primary);">
+                            <strong>🎉 ¡Felicitaciones! Vacante Asegurada</strong>
+                            <div style="margin-top: 1rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                                <div>
+                                    <div style="font-size: 0.95rem; margin-bottom: 0.5rem;">El postulante ha sido aceptado y tiene una vacante asegurada para el año lectivo 2025.</div>
+                                    <div style="font-size: 0.85rem; opacity: 0.7;">N° Constancia: CV-2025-001-MO</div>
+                                </div>
+                                <a href="#" style="padding: 0.8rem 1.5rem; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
+                                    📥 Ver Constancia de Vacante
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="form-grid" style="margin-top: 2rem;">
+                            <div class="form-group">
+                                <label>Año Lectivo <span class="required">*</span></label>
+                                <select required>
+                                    <option selected>2025</option>
+                                    <option>2026</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Grado para Matrícula <span class="required">*</span></label>
+                                <select required>
+                                    <option selected>1° Primaria</option>
+                                    <option>2° Primaria</option>
+                                    <option>3° Primaria</option>
+                                    <option>4° Primaria</option>
+                                    <option>5° Primaria</option>
+                                    <option>6° Primaria</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Aula Asignada <span class="required">*</span></label>
+                                <select required>
+                                    <option>Seleccione aula</option>
+                                    <option selected>Aula A - Mañana</option>
+                                    <option>Aula B - Mañana</option>
+                                    <option>Aula C - Tarde</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 1.5rem;">
+                            <strong>📅 Horarios Asignados</strong>
+                            <div style="margin-top: 0.8rem; font-size: 0.95rem;">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                    <div>
+                                        <strong>Turno Mañana (Aula A, B):</strong><br>
+                                        Lunes a Viernes: 8:00 AM - 1:00 PM
+                                    </div>
+                                    <div>
+                                        <strong>Turno Tarde (Aula C):</strong><br>
+                                        Lunes a Viernes: 2:00 PM - 6:00 PM
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="background: linear-gradient(135deg, rgba(255, 154, 60, 0.1), rgba(255, 154, 60, 0.05)); border-left-color: var(--secondary); margin-top: 2rem;">
+                        <strong>⚠️ Importante - Última Etapa</strong>
+                        <div style="margin-top: 0.8rem; font-size: 0.95rem;">
+                            Una vez que haga clic en <strong>"Matricular"</strong>, se formalizará la matrícula del estudiante. Asegúrese de que todos los datos sean correctos. Recibirá un correo de confirmación con la ficha de matrícula oficial.
+                        </div>
+                    </div>
+
+                    <div class="captcha-box">
+                        <div class="captcha-inner">
+                            <input type="checkbox" id="captcha-matricula">
+                            <label for="captcha-matricula" style="margin: 0; font-size: 1.1rem;">No soy un robot</label>
+                            <span style="font-size: 2rem; margin-left: 1rem;">🤖</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: Revisión y Confirmación -->
+                <div class="step-content" id="step6">
+                    <div class="content-header">
+                        <h2>✅ Revisión Final</h2>
+                        <p>Verifique que toda la información esté correcta antes de enviar su solicitud de matrícula</p>
+                    </div>
+
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h3>👤 Apoderado</h3>
+                            <div class="summary-item">
+                                <span class="summary-label">Nombre completo:</span>
+                                <span class="summary-value">Marical Aldair Perez Álvarez</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Documento:</span>
+                                <span class="summary-value">DNI 72939709</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Celular:</span>
+                                <span class="summary-value">927464428</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Email:</span>
+                                <span class="summary-value">aldair@gmail.com</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Parentesco:</span>
+                                <span class="summary-value">Padre</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Visita guiada:</span>
+                                <span class="summary-value">Sí - 16/10/2025</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-card" style="border-color: var(--secondary);">
+                            <h3>👦 Postulante 1</h3>
+                            <div class="summary-item">
+                                <span class="summary-label">Nombre completo:</span>
+                                <span class="summary-value">Juan Perez Lopez</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Documento:</span>
+                                <span class="summary-value">DNI 92844576</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Edad:</span>
+                                <span class="summary-value">4 años</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Grado actual:</span>
+                                <span class="summary-value">INICIAL</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Grado a matricular:</span>
+                                <span class="summary-value">1° Primaria - 2025</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Aula asignada:</span>
+                                <span class="summary-value">Aula A - Mañana</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-card" style="border-color: var(--accent);">
+                            <h3>📁 Documentos</h3>
+                            <div class="summary-item">
+                                <span class="summary-label">Apoderado:</span>
+                                <span class="summary-value" style="color: var(--success);">✓ 2 archivos</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Postulante 1:</span>
+                                <span class="summary-value" style="color: var(--success);">✓ 4 archivos</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Total:</span>
+                                <span class="summary-value" style="font-weight: 700;">6 documentos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="captcha-box">
+                        <div class="captcha-inner">
+                            <input type="checkbox" id="captcha">
+                            <label for="captcha" style="margin: 0; font-size: 1.1rem;">No soy un robot</label>
+                            <span style="font-size: 2rem; margin-left: 1rem;">🤖</span>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(46, 204, 113, 0.05)); border-left-color: var(--success);">
+                        <strong>✓ Todo listo para enviar</strong>
+                        Al hacer clic en "Enviar Matrícula", confirma que todos los datos proporcionados son correctos y acepta los términos y condiciones de SABERWASI. Recibirá un correo de confirmación con los siguientes pasos.
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep()" id="btn-prev" style="display: none;">
+                        ← Paso Anterior
+                    </button>
+                    <div style="flex: 1;"></div>
+                    <button class="btn btn-secondary" onclick="saveDraft()">
+                        💾 Guardar Borrador
+                    </button>
+                    <button class="btn btn-primary" onclick="nextStep()" id="btn-next">
+                        Siguiente Paso →
+                    </button>
+                    <button class="btn btn-success" onclick="matricular()" id="btn-matricular" style="display: none;">
+                        ✓ Matricular
+                    </button>
+                    <button class="btn btn-success" onclick="submitForm()" id="btn-submit" style="display: none;">
+                        ✓ Enviar Inscripción
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let currentStep = 2;
+            const totalSteps = 6;
+            let uploadedFiles = {};
+
+            function updateStepDisplay() {
+                // Hide all steps
+                document.querySelectorAll('.step-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // Show current step
+                document.getElementById(`step${currentStep}`).classList.add('active');
+
+                // Update progress bar
+                document.querySelectorAll('.progress-step').forEach((step, index) => {
+                    const stepNum = index + 1;
+                    step.classList.remove('active', 'completed');
+                    
+                    if (stepNum < currentStep) {
+                        step.classList.add('completed');
+                        step.querySelector('.step-number').textContent = '✓';
+                    } else if (stepNum === currentStep) {
+                        step.classList.add('active');
+                        step.querySelector('.step-number').textContent = stepNum;
+                    } else {
+                        step.querySelector('.step-number').textContent = stepNum;
+                    }
+                });
+
+                // Update buttons
+                document.getElementById('btn-prev').style.display = currentStep === 1 ? 'none' : 'inline-flex';
+                document.getElementById('btn-next').style.display = (currentStep === 2 || currentStep === 5 || currentStep === totalSteps) ? 'none' : 'inline-flex';
+                document.getElementById('btn-submit').style.display = currentStep === 2 ? 'inline-flex' : 'none';
+                document.getElementById('btn-matricular').style.display = currentStep === 5 ? 'inline-flex' : 'none';
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function nextStep() {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepDisplay();
+                }
+            }
+
+            function previousStep() {
+                if (currentStep > 1) {
+                    currentStep--;
+                    updateStepDisplay();
+                }
+            }
+
+            function saveDraft() {
+                alert('📝 Borrador guardado exitosamente. Puede continuar más tarde desde donde lo dejó.');
+            }
+
+            function submitForm() {
+                if (confirm('¿Está seguro de enviar la inscripción inicial?\n\nSe enviarán los datos del apoderado y postulantes. Los siguientes pasos (Atención, Documentación y Matrícula) se completarán de manera asíncrona.')) {
+                    alert('✅ ¡Inscripción enviada exitosamente!\n\nRecibirá un correo de confirmación con los siguientes pasos.\n\nLos procesos de atención, documentación y matrícula se completarán posteriormente.\n\nGracias por confiar en SABERWASI.');
+                    // Aquí se enviaría el formulario
+                }
+            }
+
+            function matricular() {
+                const captcha = document.getElementById('captcha-matricula');
+                if (captcha && !captcha.checked) {
+                    alert('⚠️ Por favor, confirme que no es un robot');
+                    return;
+                }
+
+                if (confirm('¿Está seguro de matricular al estudiante?\n\nEsta acción formalizará la matrícula y se generará la ficha oficial.')) {
+                    alert('✅ ¡Matrícula realizada exitosamente!\n\nRecibirá un correo con:\n• Ficha de matrícula oficial\n• Credenciales de acceso al portal\n• Información sobre inicio de clases\n\n¡Bienvenido a la familia SABERWASI!');
+                    // Aquí se ejecutaría la acción de matricular
+                    setTimeout(() => {
+                        currentStep = 6;
+                        updateStepDisplay();
+                    }, 500);
+                }
+            }
+
+            function handleFileUpload(input, fileName) {
+                const file = input.files[0];
+                if (file) {
+                    const parentCard = input.closest('.person-card');
+                    const fileListId = parentCard.querySelector('.file-list').id;
+                    
+                    if (!uploadedFiles[fileListId]) {
+                        uploadedFiles[fileListId] = [];
+                    }
+
+                    uploadedFiles[fileListId].push({
+                        name: fileName,
+                        file: file,
+                        size: (file.size / 1024).toFixed(2) + ' KB'
+                    });
+
+                    updateFileList(fileListId);
+                    
+                    // Mark upload area as complete
+                    input.closest('.file-upload-area').classList.add('has-files');
+                    input.closest('.file-upload-area').querySelector('.upload-text').textContent = '✓ ' + fileName + ' cargado';
+                }
+            }
+
+            function updateFileList(fileListId) {
+                const fileList = document.getElementById(fileListId);
+                fileList.innerHTML = '';
+
+                if (uploadedFiles[fileListId]) {
+                    uploadedFiles[fileListId].forEach((file, index) => {
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+                        fileItem.innerHTML = `
+                            <div class="file-icon">📄</div>
+                            <div class="file-details">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${file.size}</div>
+                            </div>
+                            <button class="remove-file" onclick="removeFile('${fileListId}', ${index})">×</button>
+                        `;
+                        fileList.appendChild(fileItem);
+                    });
+                }
+            }
+
+            function removeFile(fileListId, index) {
+                if (confirm('¿Está seguro de eliminar este archivo?')) {
+                    uploadedFiles[fileListId].splice(index, 1);
+                    updateFileList(fileListId);
+                }
+            }
+
+            function addStudent() {
+                alert('🎓 Funcionalidad para agregar otro postulante.\n\nEn la versión completa, esto duplicaría el formulario de postulante con campos vacíos.');
+            }
+
+            function removeStudent(studentId) {
+                if (confirm('⚠️ ¿Está seguro de eliminar este postulante?\n\nSe eliminarán todos los datos y documentos asociados.')) {
+                    const studentCard = document.querySelector(`[data-student-id="${studentId}"]`);
+                    if (studentCard) {
+                        studentCard.style.animation = 'fadeOut 0.3s';
+                        setTimeout(() => {
+                            studentCard.remove();
+                            // Renumerar postulantes
+                            renumberStudents();
+                            alert('✓ Postulante eliminado exitosamente.');
+                        }, 300);
+                    }
+                }
+            }
+
+            function renumberStudents() {
+                const studentCards = document.querySelectorAll('.student-card[data-student-id]');
+                studentCards.forEach((card, index) => {
+                    const newNumber = index + 1;
+                    card.setAttribute('data-student-id', newNumber);
+                    card.querySelector('.student-number').textContent = newNumber;
+                    card.querySelector('.person-info h3').textContent = `Postulante ${newNumber}`;
+                    card.querySelector('.remove-student-btn').setAttribute('onclick', `removeStudent(${newNumber})`);
+                });
+            }
+
+            // Click on progress steps to navigate
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                step.addEventListener('click', () => {
+                    currentStep = index + 1;
+                    updateStepDisplay();
+                });
+            });
+
+            // Handle visita radio buttons
+            document.querySelectorAll('input[name="visita"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const container = document.getElementById('fecha-visita-container');
+                    if (document.getElementById('visita-si').checked) {
+                        container.style.display = 'block';
+                    } else {
+                        container.style.display = 'none';
+                    }
+                });
+            });
+
+            // Initialize
+            updateStepDisplay();
+        </script>
+    </body>
+</html>
