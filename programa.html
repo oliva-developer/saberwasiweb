@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa Académico - SABERWASI</title>
+    <style>
+        :root {
+            --primary: #005c8c;
+            --primary-light: #0077b3;
+            --primary-dark: #003d5c;
+            --secondary: #10b981;
+            --accent: #4ecdc4;
+            --success: #2ecc71;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --shadow: rgba(0, 92, 140, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--bg-white);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-cta {
+            background: var(--secondary);
+            color: white !important;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .nav-cta:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            padding: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .close-menu-btn {
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: block;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding-left: 1.5rem;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-light {
+            background: var(--bg-light);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .grade-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .grade-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+
+        .grade-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .grade-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .grade-header p {
+            opacity: 0.9;
+        }
+
+        .grade-content {
+            padding: 2rem;
+        }
+
+        .grade-content h4 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .grade-content ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .grade-content ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .grade-content ul li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .subject-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .subject-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .subject-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .subject-card p {
+            color: var(--text-dark);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .methodology-text h2 {
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .methodology-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .methodology-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px var(--shadow);
+        }
+
+        .methodology-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-item h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .feature-item p {
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .activities-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 5rem 2rem;
+            color: white;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .activity-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .activity-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .activity-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .activity-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .activity-card p {
+            opacity: 0.9;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--secondary), #059669);
+            padding: 4rem;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 40px var(--shadow);
+        }
+
+        .cta-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-box p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        @media (max-width: 968px) {
+            .methodology-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .grades-grid,
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul:not(.mobile-menu ul) {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .cta-box {
+                padding: 2.5rem 2rem;
+            }
+
+            .cta-box h2 {
+                font-size: 2rem;
+            }
+
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🏠</div>
+                <span>SABERWASI</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Abrir menú">
+                ☰
+            </button>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="programa.html">Programa</a></li>
+                <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                <li><a href="admisiones.html">Admisiones</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="matricula.html" class="nav-cta">Matricular Aquí</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🏠</div>
+                <span>SABERWASI</span>
+            </a>
+            <button class="close-menu-btn" onclick="toggleMenu()" aria-label="Cerrar menú">×</button>
+        </div>
+        <ul>
+            <li><a href="index.html" onclick="toggleMenu()">Inicio</a></li>
+            <li><a href="programa.html" onclick="toggleMenu()">Programa</a></li>
+            <li><a href="sobre-nosotros.html" onclick="toggleMenu()">Sobre Nosotros</a></li>
+            <li><a href="admisiones.html" onclick="toggleMenu()">Admisiones</a></li>
+            <li><a href="contacto.html" onclick="toggleMenu()">Contacto</a></li>
+            <li><a href="matricula.html" class="nav-cta" onclick="toggleMenu()">Matricular Aquí</a></li>
+        </ul>
+    </div>
+
+    <div class="page-header">
+        <h1>Programa Académico</h1>
+        <p>Educación primaria integral que prepara a tus hijos para un futuro exitoso</p>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Nuestro Enfoque Educativo</h2>
+            <p class="section-subtitle">Una metodología que integra excelencia académica, desarrollo personal y formación en valores</p>
+
+            <div class="methodology-grid">
+                <div class="methodology-text">
+                    <h2>Educación Integral de Calidad</h2>
+                    <p>Nuestro programa académico está diseñado para desarrollar todas las dimensiones del estudiante: intelectual, emocional, social y física.</p>
+                    <p>Utilizamos metodologías activas que colocan al estudiante en el centro del aprendizaje, promoviendo la participación, la creatividad y el pensamiento crítico.</p>
+                    <p>Cada clase está cuidadosamente planificada para garantizar que los estudiantes no solo adquieran conocimientos, sino que desarrollen habilidades para la vida.</p>
+                </div>
+                <div class="methodology-image">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800" alt="Estudiantes en clase">
+                </div>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon">📖</div>
+                    <div>
+                        <h4>Currículo Nacional</h4>
+                        <p>Cumplimos y superamos los estándares del Currículo Nacional de Educación Básica del Perú.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <div>
+                        <h4>Grupos Reducidos</h4>
+                        <p>Máximo 20 estudiantes por aula para atención personalizada y seguimiento individual.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💻</div>
+                    <div>
+                        <h4>Tecnología Educativa</h4>
+                        <p>Incorporamos herramientas digitales para enriquecer el proceso de enseñanza-aprendizaje.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div>
+                        <h4>Evaluación Continua</h4>
+                        <p>Seguimiento permanente del progreso de cada estudiante con retroalimentación constante.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Grados y Niveles</h2>
+            <p class="section-subtitle">Programa completo de educación primaria de 1° a 6° grado</p>
+
+            <div class="grades-grid">
+                <div class="grade-card">
+                    <div class="grade-header">
+                        <h3>1° y 2° Grado</h3>
+                        <p>Ciclo III - Primeros Pasos</p>
+                    </div>
+                    <div class="grade-content">
+                        <h4>Objetivos Principales:</h4>
+                        <ul>
+                            <li>Desarrollo de lectoescritura</li>
+                            <li>Fundamentos matemáticos</li>
+                            <li>Socialización y trabajo en equipo</li>
+                            <li>Expresión artística y creativa</li>
+                            <li>Hábitos de estudio y responsabilidad</li>
+                        </ul>
+                        <h4>Enfoque:</h4>
+                        <p>Aprendizaje lúdico que despierta la curiosidad y el amor por el conocimiento, con énfasis en habilidades básicas fundamentales.</p>
+                    </div>
+                </div>
+
+                <div class="grade-card">
+                    <div class="grade-header">
+                        <h3>3° y 4° Grado</h3>
+                        <p>Ciclo IV - Consolidación</p>
+                    </div>
+                    <div class="grade-content">
+                        <h4>Objetivos Principales:</h4>
+                        <ul>
+                            <li>Comprensión lectora avanzada</li>
+                            <li>Razonamiento matemático</li>
+                            <li>Investigación y experimentación</li>
+                            <li>Pensamiento crítico</li>
+                            <li>Autonomía en el aprendizaje</li>
+                        </ul>
+                        <h4>Enfoque:</h4>
+                        <p>Fortalecimiento de competencias con proyectos de investigación que desarrollan autonomía y capacidad analítica.</p>
+                    </div>
+                </div>
+
+                <div class="grade-card">
+                    <div class="grade-header">
+                        <h3>5° y 6° Grado</h3>
+                        <p>Ciclo V - Preparación</p>
+                    </div>
+                    <div class="grade-content">
+                        <h4>Objetivos Principales:</h4>
+                        <ul>
+                            <li>Análisis y síntesis de información</li>
+                            <li>Resolución de problemas complejos</li>
+                            <li>Liderazgo y trabajo colaborativo</li>
+                            <li>Preparación para secundaria</li>
+                            <li>Desarrollo de proyectos integrales</li>
+                        </ul>
+                        <h4>Enfoque:</h4>
+                        <p>Desarrollo de competencias avanzadas que preparan a los estudiantes para la transición exitosa a la educación secundaria.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Áreas Curriculares</h2>
+            <p class="section-subtitle">Programa completo que cubre todas las áreas del desarrollo integral</p>
+
+            <div class="subjects-grid">
+                <div class="subject-card">
+                    <div class="subject-icon">📝</div>
+                    <h3>Comunicación</h3>
+                    <p>Desarrollo de habilidades de lectura, escritura, expresión oral y comprensión de textos en diversos formatos.</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🔢</div>
+                    <h3>Matemática</h3>
+                    <p>Razonamiento lógico, resolución de problemas, geometría y estadística aplicada a situaciones cotidianas.</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🌍</div>
+                    <h3>Personal Social</h3>
+                    <p>Historia, geografía, formación ciudadana y desarrollo de identidad personal y cultural.</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🔬</div>
+                    <h3>Ciencia y Tecnología</h3>
+                    <p>Exploración del mundo natural, método científico, experimentación y desarrollo del pensamiento crítico.</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🎨</div>
+                    <h3>Arte y Cultura</h3>
+                    <p>Expresión artística, música, teatro y artes visuales que fomentan la creatividad y sensibilidad.</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🏃</div>
+                    <h3>Educación Física</h3>
+                    <p>Desarrollo motor, deportes, hábitos saludables y trabajo en equipo a través del movimiento.</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🌐</div>
+                    <h3>Inglés</h3>
+                    <p>Aprendizaje del idioma inglés desde los primeros grados para un mundo globalizado.</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">💻</div>
+                    <h3>Computación</h3>
+                    <p>Alfabetización digital, uso responsable de tecnología y herramientas informáticas básicas.</p>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-icon">🙏</div>
+                    <h3>Educación Religiosa</h3>
+                    <p>Formación en valores, espiritualidad y desarrollo de la dimensión trascendente del ser humano.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="activities-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Actividades Complementarias</h2>
+            <p class="section-subtitle" style="color: white; opacity: 0.9;">Enriquecemos el aprendizaje con actividades que desarrollan talentos y habilidades especiales</p>
+
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-icon">📚</div>
+                    <h3>Plan Lector</h3>
+                    <p>Programa de lectura que fomenta el hábito lector y la comprensión de diversos tipos de textos.</p>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-icon">🎭</div>
+                    <h3>Teatro y Oratoria</h3>
+                    <p>Desarrollo de habilidades de expresión, confianza y comunicación efectiva en público.</p>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-icon">🎵</div>
+                    <h3>Música</h3>
+                    <p>Educación musical que desarrolla sensibilidad artística y habilidades cognitivas.</p>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-icon">⚽</div>
+                    <h3>Deportes</h3>
+                    <p>Práctica deportiva que promueve salud, disciplina y trabajo en equipo.</p>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-icon">🔬</div>
+                    <h3>Talleres Científicos</h3>
+                    <p>Experimentos y proyectos que estimulan la curiosidad científica y el método experimental.</p>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-icon">🌱</div>
+                    <h3>Educación Ambiental</h3>
+                    <p>Conciencia ecológica y prácticas sostenibles para el cuidado del medio ambiente.</p>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-icon">👨‍👩‍👧</div>
+                    <h3>Escuela de Padres</h3>
+                    <p>Espacios de formación y acompañamiento para fortalecer el rol de la familia en la educación.</p>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-icon">🎉</div>
+                    <h3>Actividades Culturales</h3>
+                    <p>Celebraciones, festivales y eventos que fortalecen la identidad cultural y la convivencia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>¿Listo para dar el mejor futuro a tu hijo?</h2>
+                <p>Conoce más sobre nuestro programa académico y descubre cómo podemos acompañar el desarrollo integral de tu hijo.</p>
+                <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="matricula.html" class="btn btn-primary">Iniciar Matrícula</a>
+                    <a href="contacto.html" class="btn btn-secondary">Solicitar Información</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content container">
+            <div class="footer-section">
+                <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+                    <div class="logo-icon">🏠</div>
+                    <span>SABERWASI</span>
+                </a>
+                <p>Institución educativa dedicada a formar estudiantes íntegros con valores sólidos y excelencia académica.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=100075654858931" target="_blank" aria-label="Facebook">📘</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="WhatsApp">💬</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="programa.html">Programa Académico</a></li>
+                    <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                    <li><a href="admisiones.html">Admisiones</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>📧 contacto@saberwasi.edu.pe</li>
+                    <li>📞 +51 999 999 999</li>
+                    <li>📍 Cusco, Perú</li>
+                    <li>🕒 Lun - Vie: 8:00 AM - 4:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2025 SABERWASI. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        document.getElementById('mobileMenu').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleMenu();
+            }
+        });
+    </script>
+</body>
+</html>

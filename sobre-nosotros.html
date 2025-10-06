@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nosotros - SABERWASI</title>
+    <style>
+        :root {
+            --primary: #005c8c;
+            --primary-light: #0077b3;
+            --primary-dark: #003d5c;
+            --secondary: #10b981;
+            --accent: #4ecdc4;
+            --success: #2ecc71;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --shadow: rgba(0, 92, 140, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--bg-white);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-cta {
+            background: var(--secondary);
+            color: white !important;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .nav-cta:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            padding: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .close-menu-btn {
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: block;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding-left: 1.5rem;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-light {
+            background: var(--bg-light);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .content-text h2 {
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .content-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px var(--shadow);
+        }
+
+        .content-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px var(--shadow);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        .team-info {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .team-info h3 {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-info .role {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-info p {
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--primary-light);
+            top: 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            grid-column: 2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            grid-column: 1;
+            text-align: right;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+            z-index: 10;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            padding: 4rem;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 40px var(--shadow);
+        }
+
+        .cta-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-box p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                padding-left: 80px;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content {
+                grid-column: 1;
+                text-align: left;
+            }
+
+            .timeline-year {
+                left: 20px;
+                transform: none;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul:not(.mobile-menu ul) {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                padding: 2.5rem 2rem;
+            }
+
+            .cta-box h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .timeline-item {
+                padding-left: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🏠</div>
+                <span>SABERWASI</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Abrir menú">
+                ☰
+            </button>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="programa.html">Programa</a></li>
+                <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                <li><a href="admisiones.html">Admisiones</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="matricula.html" class="nav-cta">Matricular Aquí</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🏠</div>
+                <span>SABERWASI</span>
+            </a>
+            <button class="close-menu-btn" onclick="toggleMenu()" aria-label="Cerrar menú">×</button>
+        </div>
+        <ul>
+            <li><a href="index.html" onclick="toggleMenu()">Inicio</a></li>
+            <li><a href="programa.html" onclick="toggleMenu()">Programa</a></li>
+            <li><a href="sobre-nosotros.html" onclick="toggleMenu()">Sobre Nosotros</a></li>
+            <li><a href="admisiones.html" onclick="toggleMenu()">Admisiones</a></li>
+            <li><a href="contacto.html" onclick="toggleMenu()">Contacto</a></li>
+            <li><a href="matricula.html" class="nav-cta" onclick="toggleMenu()">Matricular Aquí</a></li>
+        </ul>
+    </div>
+
+    <div class="page-header">
+        <h1>Sobre Nosotros</h1>
+        <p>Conoce la historia, misión y valores que guían nuestra institución educativa</p>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="content-grid">
+                <div class="content-text">
+                    <h2>Nuestra Misión</h2>
+                    <p>En SABERWASI, nos comprometemos a brindar una educación primaria de excelencia que forme estudiantes íntegros, críticos y creativos, capaces de enfrentar los desafíos del futuro con valores sólidos y competencias académicas sobresalientes.</p>
+                    <p>Nuestra misión es desarrollar el máximo potencial de cada estudiante a través de una metodología integral que combina rigor académico, desarrollo emocional, formación en valores y atención personalizada.</p>
+                </div>
+                <div class="content-image">
+                    <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800" alt="Estudiantes aprendiendo">
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-image" style="order: 2;">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800" alt="Visión educativa">
+                </div>
+                <div class="content-text" style="order: 1;">
+                    <h2>Nuestra Visión</h2>
+                    <p>Ser reconocidos como la institución educativa líder en formación primaria integral, donde cada estudiante alcance su máximo potencial académico, personal y social.</p>
+                    <p>Aspiramos a ser un referente de innovación educativa, excelencia académica y formación en valores, preparando estudiantes que se conviertan en ciudadanos responsables, líderes positivos y agentes de cambio en sus comunidades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Nuestros Valores Fundamentales</h2>
+            <p class="section-subtitle">Los principios que guían cada acción y decisión en nuestra institución</p>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>Excelencia</h3>
+                    <p>Buscamos la calidad en cada aspecto de nuestra labor educativa, motivando a estudiantes y docentes a dar lo mejor de sí mismos.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">❤️</div>
+                    <h3>Respeto</h3>
+                    <p>Valoramos la dignidad de cada persona, promoviendo un ambiente de tolerancia, empatía y comprensión mutua.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3>Responsabilidad</h3>
+                    <p>Formamos estudiantes conscientes de sus actos, comprometidos con su aprendizaje y el bienestar común.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">💡</div>
+                    <h3>Innovación</h3>
+                    <p>Incorporamos metodologías actualizadas y tecnología educativa para enriquecer el proceso de aprendizaje.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌟</div>
+                    <h3>Integridad</h3>
+                    <p>Actuamos con honestidad, transparencia y coherencia entre lo que decimos y hacemos.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌱</div>
+                    <h3>Desarrollo Integral</h3>
+                    <p>Educamos no solo la mente, sino también el corazón, formando personas equilibradas y completas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Nuestra Historia</h2>
+            <p class="section-subtitle">Un recorrido por los momentos que nos han convertido en lo que somos hoy</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2008</div>
+                    <div class="timeline-content">
+                        <h3>Fundación de SABERWASI</h3>
+                        <p>Iniciamos nuestro camino con la visión de crear una institución educativa que transforme vidas a través de una educación de calidad y valores sólidos.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2012</div>
+                    <div class="timeline-content">
+                        <h3>Primeros Egresados</h3>
+                        <p>Celebramos la graduación de nuestra primera promoción, estudiantes preparados para enfrentar nuevos desafíos académicos con excelencia.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2016</div>
+                    <div class="timeline-content">
+                        <h3>Reconocimiento Académico</h3>
+                        <p>Recibimos importantes reconocimientos por nuestra labor educativa y los logros académicos de nuestros estudiantes.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-content">
+                        <h3>Transformación Digital</h3>
+                        <p>Implementamos tecnología educativa de vanguardia, adaptándonos a los nuevos tiempos sin perder nuestro enfoque en la calidad educativa.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-content">
+                        <h3>Crecimiento Continuo</h3>
+                        <p>Seguimos creciendo y mejorando, comprometidos con la excelencia educativa y el desarrollo integral de cada estudiante.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Nuestro Equipo</h2>
+            <p class="section-subtitle">Profesionales comprometidos con la educación de excelencia</p>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-photo">👨‍💼</div>
+                    <div class="team-info">
+                        <h3>Director General</h3>
+                        <p class="role">Liderazgo Educativo</p>
+                        <p>Con más de 20 años de experiencia en educación, lidera nuestra visión de excelencia académica y formación integral.</p>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">👩‍🏫</div>
+                    <div class="team-info">
+                        <h3>Coordinadora Académica</h3>
+                        <p class="role">Gestión Pedagógica</p>
+                        <p>Especialista en metodologías innovadoras, supervisa y enriquece nuestro programa educativo constantemente.</p>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">👨‍🏫</div>
+                    <div class="team-info">
+                        <h3>Equipo Docente</h3>
+                        <p class="role">Educadores Profesionales</p>
+                        <p>Docentes calificados y comprometidos, especializados en educación primaria con vocación de servicio.</p>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">👥</div>
+                    <div class="team-info">
+                        <h3>Departamento de Psicología</h3>
+                        <p class="role">Apoyo Emocional</p>
+                        <p>Profesionales que acompañan el desarrollo socioemocional de nuestros estudiantes y sus familias.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>¿Quieres ser parte de SABERWASI?</h2>
+                <p>Únete a nuestra comunidad educativa y dale a tu hijo la oportunidad de crecer en un ambiente de excelencia, valores y desarrollo integral.</p>
+                <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="matricula.html" class="btn btn-primary">Iniciar Matrícula</a>
+                    <a href="contacto.html" class="btn btn-secondary">Solicitar Información</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content container">
+            <div class="footer-section">
+                <a href="index.html" class="logo" style="margin-bottom: 1rem;">
+                    <div class="logo-icon">🏠</div>
+                    <span>SABERWASI</span>
+                </a>
+                <p>Institución educativa dedicada a formar estudiantes íntegros con valores sólidos y excelencia académica.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=100075654858931" target="_blank" aria-label="Facebook">📘</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="WhatsApp">💬</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="programa.html">Programa Académico</a></li>
+                    <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                    <li><a href="admisiones.html">Admisiones</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>📧 contacto@saberwasi.edu.pe</li>
+                    <li>📞 +51 999 999 999</li>
+                    <li>📍 Cusco, Perú</li>
+                    <li>🕒 Lun - Vie: 8:00 AM - 4:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2025 SABERWASI. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        document.getElementById('mobileMenu').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleMenu();
+            }
+        });
+    </script>
+</body>
+</html>

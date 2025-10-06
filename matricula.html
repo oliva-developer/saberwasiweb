@@ -1,4 +1,6 @@
-<html>
+
+<!DOCTYPE html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +10,7 @@
                 --primary: #005c8c;
                 --primary-light: #0077b3;
                 --primary-dark: #003d5c;
-                --secondary: #ff9a3c;
+                --secondary: #10b981;
                 --accent: #4ecdc4;
                 --success: #2ecc71;
                 --text-dark: #2c3e50;
@@ -30,17 +32,17 @@
                 background: var(--bg-light);
                 color: var(--text-dark);
                 line-height: 1.6;
-                padding: 2rem 1rem;
-                padding-top: 0 !important;
+                padding: 0;
+                margin: 0;
             }
 
+            /* Header Styles */
             header {
                 background: var(--bg-white);
                 box-shadow: 0 2px 10px var(--shadow);
                 position: sticky;
                 top: 0;
                 z-index: 1000;
-                padding-top: 1rem;
             }
 
             nav {
@@ -59,6 +61,7 @@
                 font-size: 1.8rem;
                 font-weight: 700;
                 color: var(--primary);
+                text-decoration: none;
             }
 
             .logo-icon {
@@ -78,6 +81,25 @@
                 list-style: none;
                 gap: 2.5rem;
                 align-items: center;
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav-cta {
+                background: var(--secondary);
+                color: white !important;
+                padding: 0.8rem 2rem;
+                border-radius: 50px;
+                font-weight: 700;
+                transition: all 0.3s;
+                box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            }
+
+            .nav-cta:hover {
+                background: #059669;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+                color: white !important;
             }
 
             nav a {
@@ -91,10 +113,85 @@
                 color: var(--primary);
             }
 
+            .mobile-menu-btn {
+                display: none;
+                background: none;
+                border: none;
+                font-size: 1.8rem;
+                color: var(--primary);
+                cursor: pointer;
+                padding: 0.5rem;
+            }
+
+            .mobile-menu {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                z-index: 9999;
+                padding: 2rem;
+                animation: fadeIn 0.3s;
+            }
+
+            .mobile-menu.active {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .mobile-menu-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 3rem;
+            }
+
+            .close-menu-btn {
+                background: none;
+                border: none;
+                font-size: 2.5rem;
+                color: white;
+                cursor: pointer;
+                padding: 0;
+                line-height: 1;
+            }
+
+            .mobile-menu ul {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .mobile-menu a {
+                color: white;
+                text-decoration: none;
+                font-size: 1.5rem;
+                font-weight: 600;
+                transition: all 0.3s;
+                display: block;
+                padding: 1rem;
+                border-radius: 8px;
+            }
+
+            .mobile-menu a:hover {
+                background: rgba(255, 255, 255, 0.1);
+                padding-left: 1.5rem;
+            }
+
+            .mobile-menu .nav-cta {
+                background: var(--secondary);
+                text-align: center;
+                padding: 1.2rem 2rem !important;
+                margin-top: 2rem;
+            }
 
             .container {
                 max-width: 1400px;
                 margin: 0 auto;
+                padding: 2rem 1rem;
             }
 
             .form-header {
@@ -502,6 +599,49 @@
                 transform: scale(1.2);
             }
 
+            .upload-progress {
+                margin-top: 1rem;
+                padding: 1rem;
+                background: white;
+                border-radius: 8px;
+                border: 2px solid var(--border);
+                display: none;
+            }
+
+            .upload-progress.active {
+                display: block;
+            }
+
+            .progress-bar-container {
+                width: 100%;
+                height: 8px;
+                background: var(--bg-light);
+                border-radius: 10px;
+                overflow: hidden;
+                margin: 0.8rem 0;
+            }
+
+            .progress-bar-fill {
+                height: 100%;
+                background: linear-gradient(90deg, var(--primary), var(--primary-light));
+                border-radius: 10px;
+                transition: width 0.3s ease;
+                width: 0%;
+            }
+
+            .progress-text {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 0.9rem;
+                color: var(--text-dark);
+            }
+
+            .progress-status {
+                color: var(--success);
+                font-weight: 600;
+            }
+
             .remove-student-btn {
                 position: absolute;
                 top: 1rem;
@@ -712,6 +852,15 @@
 
                 .progress-step {
                     flex: 1 1 calc(50% - 1px);
+                    padding: 1.5rem 1rem;
+                }
+
+                .step-title {
+                    font-size: 0.95rem;
+                }
+
+                .step-subtitle {
+                    font-size: 0.8rem;
                 }
 
                 .step-content {
@@ -725,26 +874,225 @@
                 .recover-link {
                     position: static;
                     margin-top: 1rem;
+                    display: block;
+                    text-align: center;
+                }
+
+                nav ul {
+                    gap: 1.5rem;
+                }
+
+                .nav-cta {
+                    padding: 0.6rem 1.5rem;
+                    font-size: 0.9rem;
+                }
+
+                .content-header h2 {
+                    font-size: 1.6rem;
+                }
+
+                .person-card {
+                    padding: 1.5rem;
+                }
+
+                .form-header {
+                    padding: 2rem 1.5rem;
+                }
+
+                .form-header h1 {
+                    font-size: 1.6rem;
+                }
+
+                .summary-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .file-list {
+                    grid-template-columns: 1fr;
                 }
             }
 
-            @media (max-width: 640px) {
+            @media (max-width: 768px) {
+                nav ul:not(.mobile-menu ul) {
+                    display: none;
+                }
+
+                .mobile-menu-btn {
+                    display: block;
+                }
+
                 .progress-step {
                     flex: 1 1 100%;
+                }
+
+                .step-number {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 1.1rem;
                 }
 
                 .person-header {
                     flex-direction: column;
                     text-align: center;
+                    gap: 1rem;
+                }
+
+                .person-avatar {
+                    margin: 0 auto;
                 }
 
                 .navigation-buttons {
                     flex-direction: column;
+                    padding: 1.5rem;
+                    gap: 1rem;
                 }
 
                 .btn {
                     width: 100%;
                     justify-content: center;
+                }
+
+                .remove-student-btn {
+                    position: static;
+                    width: 100%;
+                    margin-bottom: 1rem;
+                }
+
+                .student-number {
+                    top: 0.5rem;
+                    right: 0.5rem;
+                    width: 35px;
+                    height: 35px;
+                    font-size: 1rem;
+                }
+
+                .container {
+                    padding: 1rem 0.5rem;
+                }
+
+                .stepper-container {
+                    border-radius: 10px;
+                }
+
+                .form-header {
+                    border-radius: 10px;
+                }
+            }
+
+            @media (max-width: 640px) {
+                nav {
+                    padding: 1rem 1.5rem;
+                }
+
+                .logo {
+                    font-size: 1.5rem;
+                }
+
+                .logo-icon {
+                    width: 38px;
+                    height: 38px;
+                    font-size: 1.2rem;
+                }
+
+                .form-header {
+                    padding: 1.5rem 1rem;
+                }
+
+                .form-header h1 {
+                    font-size: 1.4rem;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                }
+
+                .form-header p {
+                    font-size: 0.95rem;
+                }
+
+                .content-header h2 {
+                    font-size: 1.4rem;
+                }
+
+                .content-header p {
+                    font-size: 0.95rem;
+                }
+
+                .step-content {
+                    padding: 1.5rem 1rem;
+                }
+
+                .person-card {
+                    padding: 1.2rem;
+                }
+
+                .section-badge {
+                    font-size: 0.75rem;
+                    padding: 0.25rem 0.6rem;
+                }
+
+                .person-info h3 {
+                    font-size: 1.2rem;
+                }
+
+                .info-box {
+                    padding: 1rem;
+                }
+
+                .checkbox-item {
+                    padding: 1rem;
+                }
+
+                .add-student-btn {
+                    padding: 1.2rem;
+                    font-size: 1rem;
+                }
+
+                .file-upload-area {
+                    padding: 1.5rem;
+                }
+
+                .upload-icon {
+                    font-size: 2.5rem;
+                }
+
+                .upload-text {
+                    font-size: 1rem;
+                }
+
+                .summary-card {
+                    padding: 1.5rem;
+                }
+
+                .summary-card h3 {
+                    font-size: 1.2rem;
+                }
+
+                .captcha-inner {
+                    padding: 1rem 1.5rem;
+                    flex-direction: column;
+                    text-align: center;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .form-header h1 {
+                    font-size: 1.2rem;
+                }
+
+                .content-header h2 {
+                    font-size: 1.2rem;
+                }
+
+                .step-title {
+                    font-size: 0.85rem;
+                }
+
+                .btn {
+                    font-size: 1rem;
+                    padding: 0.9rem 2rem;
+                }
+
+                .progress-step {
+                    padding: 1rem 0.5rem;
                 }
             }
 
@@ -801,20 +1149,46 @@
         </style>
     </head>
     <body>
+        <!-- Header Navigation -->
         <header>
             <nav>
-                <div class="logo">
+                <a href="index.html" class="logo">
                     <div class="logo-icon">🏠</div>
                     <span>SABERWASI</span>
-                </div>
+                </a>
+                <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Abrir menú">
+                    ☰
+                </button>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
-                    <li><a href="#programa">Programa</a></li>
-                    <li><a href="#nosotros">Sobre Nosotros</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="programa.html">Programa</a></li>
+                    <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                    <li><a href="admisiones.html">Admisiones</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="matricula.html" class="nav-cta">Matricular Aquí</a></li>
                 </ul>
             </nav>
         </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🏠</div>
+                    <span>SABERWASI</span>
+                </a>
+                <button class="close-menu-btn" onclick="toggleMenu()" aria-label="Cerrar menú">×</button>
+            </div>
+            <ul>
+                <li><a href="index.html" onclick="toggleMenu()">Inicio</a></li>
+                <li><a href="programa.html" onclick="toggleMenu()">Programa</a></li>
+                <li><a href="sobre-nosotros.html" onclick="toggleMenu()">Sobre Nosotros</a></li>
+                <li><a href="admisiones.html" onclick="toggleMenu()">Admisiones</a></li>
+                <li><a href="contacto.html" onclick="toggleMenu()">Contacto</a></li>
+                <li><a href="matricula.html" class="nav-cta" onclick="toggleMenu()">Matricular Aquí</a></li>
+            </ul>
+        </div>
+
         <div class="container">
             <div class="form-header">
                 <a href="#" class="recover-link">
@@ -852,11 +1226,6 @@
                         <div class="step-title">Matrícula</div>
                         <div class="step-subtitle">Asignación</div>
                     </div>
-                    <div class="progress-step" data-step="6">
-                        <div class="step-number">6</div>
-                        <div class="step-title">Revisión</div>
-                        <div class="step-subtitle">Confirmar</div>
-                    </div>
                 </div>
 
                 <!-- Step 1: Apoderado -->
@@ -890,15 +1259,15 @@
                             </div>
                             <div class="form-group">
                                 <label>Nombres <span class="required">*</span></label>
-                                <input type="text" value="Marical Aldair" required>
+                                <input type="text" value="Luis" required>
                             </div>
                             <div class="form-group">
                                 <label>Apellido Paterno <span class="required">*</span></label>
-                                <input type="text" value="Perez" required>
+                                <input type="text" value="Del Castillo" required>
                             </div>
                             <div class="form-group">
                                 <label>Apellido Materno <span class="required">*</span></label>
-                                <input type="text" value="Álvarez" required>
+                                <input type="text" value="Juarez" required>
                             </div>
                             <div class="form-group">
                                 <label>Celular <span class="required">*</span></label>
@@ -1017,11 +1386,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Nombres <span class="required">*</span></label>
-                                <input type="text" value="Juan" required>
+                                <input type="text" value="Richard" required>
                             </div>
                             <div class="form-group">
                                 <label>Apellido Paterno <span class="required">*</span></label>
-                                <input type="text" value="Perez" required>
+                                <input type="text" value="Del Castillo" required>
                             </div>
                             <div class="form-group">
                                 <label>Apellido Materno <span class="required">*</span></label>
@@ -1043,17 +1412,6 @@
                                 <label>Grado Actual <span class="required">*</span></label>
                                 <select required>
                                     <option>INICIAL</option>
-                                    <option>1° Primaria</option>
-                                    <option>2° Primaria</option>
-                                    <option>3° Primaria</option>
-                                    <option>4° Primaria</option>
-                                    <option>5° Primaria</option>
-                                    <option>6° Primaria</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Grado a Matricular <span class="required">*</span></label>
-                                <select required>
                                     <option>1° Primaria</option>
                                     <option>2° Primaria</option>
                                     <option>3° Primaria</option>
@@ -1126,33 +1484,6 @@
                                     <option>6° Primaria</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Grado a Matricular <span class="required">*</span></label>
-                                <select required>
-                                    <option>1° Primaria</option>
-                                    <option>2° Primaria</option>
-                                    <option>3° Primaria</option>
-                                    <option>4° Primaria</option>
-                                    <option>5° Primaria</option>
-                                    <option>6° Primaria</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Año Lectivo <span class="required">*</span></label>
-                                <select required>
-                                    <option>2025</option>
-                                    <option>2026</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Aula Asignada <span class="required">*</span></label>
-                                <select required>
-                                    <option>Seleccione aula</option>
-                                    <option>Aula A - Mañana</option>
-                                    <option>Aula B - Mañana</option>
-                                    <option>Aula C - Tarde</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
 
@@ -1198,7 +1529,7 @@
                         <div class="person-header">
                             <div class="person-avatar">👦</div>
                             <div class="person-info">
-                                <h3>Juan Perez Lopez</h3>
+                                <h3>Richard Del Castillo Lopez</h3>
                                 <span class="person-badge" style="background: var(--success);">✓ Evaluación completada</span>
                             </div>
                         </div>
@@ -1248,15 +1579,35 @@
                         <div class="file-upload-area" onclick="document.getElementById('file-apoderado-1').click()">
                             <div class="upload-icon">📤</div>
                             <div class="upload-text">Constancia de No Adeudo</div>
-                            <div class="upload-hint">Haga clic para seleccionar archivo o arrástrelo aquí (PDF, JPG, PNG - Máx. 5MB)</div>
-                            <input type="file" id="file-apoderado-1" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Constancia de No Adeudo')">
+                            <div class="upload-hint">Haga clic para seleccionar archivo (Solo PDF - Máx. 5MB)</div>
+                            <input type="file" id="file-apoderado-1" accept=".pdf" style="display: none;" onchange="handleFileUpload(this, 'Constancia de No Adeudo', 'files-apoderado')">
+                            <div class="upload-progress" id="progress-apoderado-1">
+                                <div class="progress-text">
+                                    <span>Cargando archivo...</span>
+                                    <span class="progress-percentage">0%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                                <div class="progress-status"></div>
+                            </div>
                         </div>
 
                         <div class="file-upload-area" onclick="document.getElementById('file-apoderado-2').click()">
                             <div class="upload-icon">📤</div>
                             <div class="upload-text">Comprobante de Pago</div>
-                            <div class="upload-hint">Haga clic para seleccionar archivo o arrástrelo aquí (PDF, JPG, PNG - Máx. 5MB)</div>
-                            <input type="file" id="file-apoderado-2" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Comprobante de Pago')">
+                            <div class="upload-hint">Haga clic para seleccionar archivo (Solo PDF - Máx. 5MB)</div>
+                            <input type="file" id="file-apoderado-2" accept=".pdf" style="display: none;" onchange="handleFileUpload(this, 'Comprobante de Pago', 'files-apoderado')">
+                            <div class="upload-progress" id="progress-apoderado-2">
+                                <div class="progress-text">
+                                    <span>Cargando archivo...</span>
+                                    <span class="progress-percentage">0%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                                <div class="progress-status"></div>
+                            </div>
                         </div>
 
                         <div class="file-list" id="files-apoderado"></div>
@@ -1267,36 +1618,76 @@
                         <div class="person-header">
                             <div class="person-avatar">👦</div>
                             <div class="person-info">
-                                <h3>Documentos de Juan Perez Lopez</h3>
+                                <h3>Documentos de Richard Del Castillo Lopez</h3>
                             </div>
                         </div>
 
                         <div class="file-upload-area" onclick="document.getElementById('file-student-1-1').click()">
                             <div class="upload-icon">📤</div>
                             <div class="upload-text">Certificado de Estudios</div>
-                            <div class="upload-hint">Documento oficial de la institución anterior (PDF)</div>
-                            <input type="file" id="file-student-1-1" accept=".pdf" style="display: none;" onchange="handleFileUpload(this, 'Certificado de Estudios')">
+                            <div class="upload-hint">Documento oficial de la institución anterior (Solo PDF)</div>
+                            <input type="file" id="file-student-1-1" accept=".pdf" style="display: none;" onchange="handleFileUpload(this, 'Certificado de Estudios', 'files-student-1')">
+                            <div class="upload-progress" id="progress-student-1-1">
+                                <div class="progress-text">
+                                    <span>Cargando archivo...</span>
+                                    <span class="progress-percentage">0%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                                <div class="progress-status"></div>
+                            </div>
                         </div>
 
                         <div class="file-upload-area" onclick="document.getElementById('file-student-1-2').click()">
                             <div class="upload-icon">📤</div>
                             <div class="upload-text">Libreta de Notas</div>
-                            <div class="upload-hint">Último período académico (PDF, JPG, PNG)</div>
-                            <input type="file" id="file-student-1-2" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Libreta de Notas')">
+                            <div class="upload-hint">Último período académico (Solo PDF)</div>
+                            <input type="file" id="file-student-1-2" accept=".pdf" style="display: none;" onchange="handleFileUpload(this, 'Libreta de Notas', 'files-student-1')">
+                            <div class="upload-progress" id="progress-student-1-2">
+                                <div class="progress-text">
+                                    <span>Cargando archivo...</span>
+                                    <span class="progress-percentage">0%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                                <div class="progress-status"></div>
+                            </div>
                         </div>
 
                         <div class="file-upload-area" onclick="document.getElementById('file-student-1-3').click()">
                             <div class="upload-icon">📤</div>
                             <div class="upload-text">Ficha de Matrícula Año Anterior</div>
-                            <div class="upload-hint">Si aplica (PDF, JPG, PNG)</div>
-                            <input type="file" id="file-student-1-3" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Ficha de Matrícula')">
+                            <div class="upload-hint">Si aplica (Solo PDF)</div>
+                            <input type="file" id="file-student-1-3" accept=".pdf" style="display: none;" onchange="handleFileUpload(this, 'Ficha de Matrícula', 'files-student-1')">
+                            <div class="upload-progress" id="progress-student-1-3">
+                                <div class="progress-text">
+                                    <span>Cargando archivo...</span>
+                                    <span class="progress-percentage">0%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                                <div class="progress-status"></div>
+                            </div>
                         </div>
 
                         <div class="file-upload-area" onclick="document.getElementById('file-student-1-4').click()">
                             <div class="upload-icon">📤</div>
                             <div class="upload-text">Documento de Identidad Escaneado</div>
-                            <div class="upload-hint">DNI o Partida de Nacimiento (PDF, JPG, PNG)</div>
-                            <input type="file" id="file-student-1-4" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" onchange="handleFileUpload(this, 'Documento de Identidad')">
+                            <div class="upload-hint">DNI o Partida de Nacimiento (Solo PDF)</div>
+                            <input type="file" id="file-student-1-4" accept=".pdf" style="display: none;" onchange="handleFileUpload(this, 'Documento de Identidad', 'files-student-1')">
+                            <div class="upload-progress" id="progress-student-1-4">
+                                <div class="progress-text">
+                                    <span>Cargando archivo...</span>
+                                    <span class="progress-percentage">0%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                                <div class="progress-status"></div>
+                            </div>
                         </div>
 
                         <div class="file-list" id="files-student-1">                    </div>
@@ -1304,7 +1695,7 @@
 
                     <div class="info-box">
                         <strong>📌 Importante:</strong>
-                        Asegúrese de que todos los documentos sean legibles y estén en formato PDF, JPG o PNG. Los archivos no deben superar los 5MB cada uno. Si tiene varios postulantes, deberá cargar los documentos de cada uno por separado.
+                        Asegúrese de que todos los documentos sean legibles y estén en formato PDF. Los archivos no deben superar los 5MB cada uno. Si tiene varios postulantes, deberá cargar los documentos de cada uno por separado.
                     </div>
                 </div>
 
@@ -1321,7 +1712,7 @@
                         <div class="person-header">
                             <div class="person-avatar">👦</div>
                             <div class="person-info">
-                                <h3>Juan Perez Lopez</h3>
+                                <h3>Richard Del Castillo Lopez</h3>
                                 <span class="person-badge" style="background: var(--primary);">Listo para matricular</span>
                             </div>
                         </div>
@@ -1339,163 +1730,24 @@
                             </div>
                         </div>
 
-                        <div class="form-grid" style="margin-top: 2rem;">
-                            <div class="form-group">
-                                <label>Año Lectivo <span class="required">*</span></label>
-                                <select required>
-                                    <option selected>2025</option>
-                                    <option>2026</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Grado para Matrícula <span class="required">*</span></label>
-                                <select required>
-                                    <option selected>1° Primaria</option>
-                                    <option>2° Primaria</option>
-                                    <option>3° Primaria</option>
-                                    <option>4° Primaria</option>
-                                    <option>5° Primaria</option>
-                                    <option>6° Primaria</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Aula Asignada <span class="required">*</span></label>
-                                <select required>
-                                    <option>Seleccione aula</option>
-                                    <option selected>Aula A - Mañana</option>
-                                    <option>Aula B - Mañana</option>
-                                    <option>Aula C - Tarde</option>
-                                </select>
-                            </div>
-                        </div>
+                    </div>
 
-                        <div class="info-box" style="margin-top: 1.5rem;">
-                            <strong>📅 Horarios Asignados</strong>
-                            <div style="margin-top: 0.8rem; font-size: 0.95rem;">
-                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                                    <div>
-                                        <strong>Turno Mañana (Aula A, B):</strong><br>
-                                        Lunes a Viernes: 8:00 AM - 1:00 PM
-                                    </div>
-                                    <div>
-                                        <strong>Turno Tarde (Aula C):</strong><br>
-                                        Lunes a Viernes: 2:00 PM - 6:00 PM
-                                    </div>
+                    <div class="info-box" style="background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(78, 205, 196, 0.05)); border-left-color: var(--accent); margin-top: 2rem;">
+                        <strong>📅 Horarios de Clases</strong>
+                        <div style="margin-top: 1rem; font-size: 0.95rem;">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                                <div style="background: white; padding: 1rem; border-radius: 8px; border: 2px solid var(--border);">
+                                    <strong style="color: var(--primary);">Turno Mañana (Aula A, B):</strong><br>
+                                    <div style="margin-top: 0.5rem;">Lunes a Viernes<br>8:00 AM - 1:00 PM</div>
+                                </div>
+                                <div style="background: white; padding: 1rem; border-radius: 8px; border: 2px solid var(--border);">
+                                    <strong style="color: var(--primary);">Turno Tarde (Aula C):</strong><br>
+                                    <div style="margin-top: 0.5rem;">Lunes a Viernes<br>2:00 PM - 6:00 PM</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="info-box" style="background: linear-gradient(135deg, rgba(255, 154, 60, 0.1), rgba(255, 154, 60, 0.05)); border-left-color: var(--secondary); margin-top: 2rem;">
-                        <strong>⚠️ Importante - Última Etapa</strong>
-                        <div style="margin-top: 0.8rem; font-size: 0.95rem;">
-                            Una vez que haga clic en <strong>"Matricular"</strong>, se formalizará la matrícula del estudiante. Asegúrese de que todos los datos sean correctos. Recibirá un correo de confirmación con la ficha de matrícula oficial.
-                        </div>
-                    </div>
-
-                    <div class="captcha-box">
-                        <div class="captcha-inner">
-                            <input type="checkbox" id="captcha-matricula">
-                            <label for="captcha-matricula" style="margin: 0; font-size: 1.1rem;">No soy un robot</label>
-                            <span style="font-size: 2rem; margin-left: 1rem;">🤖</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 6: Revisión y Confirmación -->
-                <div class="step-content" id="step6">
-                    <div class="content-header">
-                        <h2>✅ Revisión Final</h2>
-                        <p>Verifique que toda la información esté correcta antes de enviar su solicitud de matrícula</p>
-                    </div>
-
-                    <div class="summary-grid">
-                        <div class="summary-card">
-                            <h3>👤 Apoderado</h3>
-                            <div class="summary-item">
-                                <span class="summary-label">Nombre completo:</span>
-                                <span class="summary-value">Marical Aldair Perez Álvarez</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Documento:</span>
-                                <span class="summary-value">DNI 72939709</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Celular:</span>
-                                <span class="summary-value">927464428</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Email:</span>
-                                <span class="summary-value">aldair@gmail.com</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Parentesco:</span>
-                                <span class="summary-value">Padre</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Visita guiada:</span>
-                                <span class="summary-value">Sí - 16/10/2025</span>
-                            </div>
-                        </div>
-
-                        <div class="summary-card" style="border-color: var(--secondary);">
-                            <h3>👦 Postulante 1</h3>
-                            <div class="summary-item">
-                                <span class="summary-label">Nombre completo:</span>
-                                <span class="summary-value">Juan Perez Lopez</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Documento:</span>
-                                <span class="summary-value">DNI 92844576</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Edad:</span>
-                                <span class="summary-value">4 años</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Grado actual:</span>
-                                <span class="summary-value">INICIAL</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Grado a matricular:</span>
-                                <span class="summary-value">1° Primaria - 2025</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Aula asignada:</span>
-                                <span class="summary-value">Aula A - Mañana</span>
-                            </div>
-                        </div>
-
-                        <div class="summary-card" style="border-color: var(--accent);">
-                            <h3>📁 Documentos</h3>
-                            <div class="summary-item">
-                                <span class="summary-label">Apoderado:</span>
-                                <span class="summary-value" style="color: var(--success);">✓ 2 archivos</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Postulante 1:</span>
-                                <span class="summary-value" style="color: var(--success);">✓ 4 archivos</span>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Total:</span>
-                                <span class="summary-value" style="font-weight: 700;">6 documentos</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="captcha-box">
-                        <div class="captcha-inner">
-                            <input type="checkbox" id="captcha">
-                            <label for="captcha" style="margin: 0; font-size: 1.1rem;">No soy un robot</label>
-                            <span style="font-size: 2rem; margin-left: 1rem;">🤖</span>
-                        </div>
-                    </div>
-
-                    <div class="info-box" style="background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(46, 204, 113, 0.05)); border-left-color: var(--success);">
-                        <strong>✓ Todo listo para enviar</strong>
-                        Al hacer clic en "Enviar Matrícula", confirma que todos los datos proporcionados son correctos y acepta los términos y condiciones de SABERWASI. Recibirá un correo de confirmación con los siguientes pasos.
-                    </div>
-                </div>
 
                 <!-- Navigation Buttons -->
                 <div class="navigation-buttons">
@@ -1520,9 +1772,27 @@
         </div>
 
         <script>
-            let currentStep = 2;
-            const totalSteps = 6;
+            let currentStep = 1; // Por defecto muestra el paso 1 (Apoderado)
+            const totalSteps = 5;
             let uploadedFiles = {};
+
+            // Función para manejar enlaces con hash al cargar la página
+            function initializeFromHash() {
+                const hash = window.location.hash;
+                if (hash) {
+                    // Extraer el número del paso del hash (ej: #step3 -> 3)
+                    const match = hash.match(/#step(\d+)/);
+                    if (match) {
+                        const stepNum = parseInt(match[1]);
+                        if (stepNum >= 1 && stepNum <= totalSteps) {
+                            currentStep = stepNum;
+                        }
+                    }
+                }
+            }
+
+            // Inicializar desde el hash al cargar la página
+            initializeFromHash();
 
             function updateStepDisplay() {
                 // Hide all steps
@@ -1551,9 +1821,15 @@
 
                 // Update buttons
                 document.getElementById('btn-prev').style.display = currentStep === 1 ? 'none' : 'inline-flex';
-                document.getElementById('btn-next').style.display = (currentStep === 2 || currentStep === 5 || currentStep === totalSteps) ? 'none' : 'inline-flex';
+                document.getElementById('btn-next').style.display = currentStep === totalSteps ? 'none' : 'inline-flex';
                 document.getElementById('btn-submit').style.display = currentStep === 2 ? 'inline-flex' : 'none';
                 document.getElementById('btn-matricular').style.display = currentStep === 5 ? 'inline-flex' : 'none';
+
+                // Ocultar botón "Guardar Borrador" en pasos 3, 4 y 5
+                const saveDraftBtn = document.querySelector('.btn-secondary[onclick="saveDraft()"]');
+                if (saveDraftBtn) {
+                    saveDraftBtn.style.display = (currentStep === 3 || currentStep === 4 || currentStep === 5) ? 'none' : 'inline-flex';
+                }
 
                 // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1578,10 +1854,12 @@
             }
 
             function submitForm() {
-                if (confirm('¿Está seguro de enviar la inscripción inicial?\n\nSe enviarán los datos del apoderado y postulantes. Los siguientes pasos (Atención, Documentación y Matrícula) se completarán de manera asíncrona.')) {
-                    alert('✅ ¡Inscripción enviada exitosamente!\n\nRecibirá un correo de confirmación con los siguientes pasos.\n\nLos procesos de atención, documentación y matrícula se completarán posteriormente.\n\nGracias por confiar en SABERWASI.');
-                    // Aquí se enviaría el formulario
-                }
+                // Mostrar mensaje de confirmación
+                alert('✅ ¡Inscripción realizada con éxito!\n\nSus datos han sido registrados correctamente.\n\nAhora pasaremos al proceso de Atención donde coordinará la visita a la institución, entrevista y evaluación.\n\nGracias por confiar en SABERWASI.');
+
+                // Avanzar automáticamente al siguiente paso (Atención)
+                currentStep = 3; // Paso 3 es Atención
+                updateStepDisplay();
             }
 
             function matricular() {
@@ -1601,27 +1879,75 @@
                 }
             }
 
-            function handleFileUpload(input, fileName) {
+            function handleFileUpload(input, fileName, fileListId) {
                 const file = input.files[0];
                 if (file) {
-                    const parentCard = input.closest('.person-card');
-                    const fileListId = parentCard.querySelector('.file-list').id;
-                    
-                    if (!uploadedFiles[fileListId]) {
-                        uploadedFiles[fileListId] = [];
+                    // Validar que sea PDF
+                    if (file.type !== 'application/pdf') {
+                        alert('⚠️ Error: Solo se permiten archivos PDF.\n\nPor favor, seleccione un archivo en formato PDF.');
+                        input.value = ''; // Limpiar el input
+                        return;
                     }
 
-                    uploadedFiles[fileListId].push({
-                        name: fileName,
-                        file: file,
-                        size: (file.size / 1024).toFixed(2) + ' KB'
-                    });
+                    // Validar tamaño (5MB máximo)
+                    const maxSize = 5 * 1024 * 1024; // 5MB en bytes
+                    if (file.size > maxSize) {
+                        alert('⚠️ Error: El archivo excede el tamaño máximo permitido.\n\nTamaño máximo: 5MB\nTamaño del archivo: ' + (file.size / 1024 / 1024).toFixed(2) + 'MB');
+                        input.value = '';
+                        return;
+                    }
 
-                    updateFileList(fileListId);
-                    
-                    // Mark upload area as complete
-                    input.closest('.file-upload-area').classList.add('has-files');
-                    input.closest('.file-upload-area').querySelector('.upload-text').textContent = '✓ ' + fileName + ' cargado';
+                    const uploadArea = input.closest('.file-upload-area');
+                    const progressDiv = uploadArea.querySelector('.upload-progress');
+                    const progressBar = progressDiv.querySelector('.progress-bar-fill');
+                    const progressPercentage = progressDiv.querySelector('.progress-percentage');
+                    const progressStatus = progressDiv.querySelector('.progress-status');
+
+                    // Mostrar barra de progreso
+                    progressDiv.classList.add('active');
+
+                    // Simular carga progresiva
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += Math.random() * 30;
+                        if (progress > 100) progress = 100;
+
+                        progressBar.style.width = progress + '%';
+                        progressPercentage.textContent = Math.round(progress) + '%';
+
+                        if (progress >= 100) {
+                            clearInterval(interval);
+
+                            // Mostrar mensaje de éxito
+                            progressStatus.textContent = '✓ Archivo cargado exitosamente al servidor';
+                            progressStatus.style.color = 'var(--success)';
+
+                            // Actualizar lista de archivos
+                            if (!uploadedFiles[fileListId]) {
+                                uploadedFiles[fileListId] = [];
+                            }
+
+                            uploadedFiles[fileListId].push({
+                                name: fileName,
+                                file: file,
+                                size: (file.size / 1024).toFixed(2) + ' KB'
+                            });
+
+                            updateFileList(fileListId);
+
+                            // Marcar área de carga como completada
+                            uploadArea.classList.add('has-files');
+                            uploadArea.querySelector('.upload-text').textContent = '✓ ' + fileName + ' cargado';
+
+                            // Ocultar barra de progreso después de 2 segundos
+                            setTimeout(() => {
+                                progressDiv.classList.remove('active');
+                                progressBar.style.width = '0%';
+                                progressPercentage.textContent = '0%';
+                                progressStatus.textContent = '';
+                            }, 2000);
+                        }
+                    }, 100);
                 }
             }
 
@@ -1705,6 +2031,20 @@
 
             // Initialize
             updateStepDisplay();
+
+            // Mobile menu toggle
+            function toggleMenu() {
+                const menu = document.getElementById('mobileMenu');
+                menu.classList.toggle('active');
+                document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+            }
+
+            // Cerrar menú al hacer clic fuera de él
+            document.getElementById('mobileMenu').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    toggleMenu();
+                }
+            });
         </script>
     </body>
 </html>
